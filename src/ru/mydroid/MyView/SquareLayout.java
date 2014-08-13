@@ -1,4 +1,4 @@
-package ru.mydroid;
+package ru.mydroid.MyView;
 
 import android.content.Context;
 import android.util.AttributeSet;

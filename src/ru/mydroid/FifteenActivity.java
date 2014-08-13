@@ -1,22 +1,18 @@
 package ru.mydroid;
 
 import android.app.Activity;
-import android.content.res.Configuration;
 import android.os.Bundle;
-import android.os.SystemClock;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.TextView;
-import android.widget.Toast;
+import ru.mydroid.MyView.SquareLayout;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
-public class FifteenActivity extends Activity {
+public class FifteenActivity extends Activity implements OnClickListener{
 
 	private Button b11;
 	private Button b12;
@@ -39,131 +35,41 @@ public class FifteenActivity extends Activity {
 	private Button b44;
 
     TextView viewSteps;
-    int steps = -1;
-
     Chronometer timer;
+    SquareLayout squareLayout;
 
-	private Button[][] buttons = new Button[4][4];
+    GameHelper gameHelper;
+
+
 	private int[][] array = new int[4][4];
-	private Point emptySpace = new Point();
+
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
 		setContentView(R.layout.main);
-		initArray();
-		generateArray();
-		paintTable();
-        updateSteps();
+
+		initilization();
+		array = gameHelper.generateArray();
+		gameHelper.paintTable();
         timer.start();
 
-		OnClickListener listener = new OnClickListener() {
-			public void onClick(View myView) {
-				Button clickedButton = (Button) myView;
-				Point clickedPoint = getClickedPoint(clickedButton);
-				if (clickedPoint != null && canMove(clickedPoint)) {
-					clickedButton.setVisibility(View.INVISIBLE);
-					String numberStr = clickedButton.getText().toString();
-					clickedButton.setText(" ");
-
-					Button button = buttons[emptySpace.x][emptySpace.y];
-					button.setVisibility(View.VISIBLE);
-					button.setText(numberStr);
-
-					emptySpace.x = clickedPoint.x;
-					emptySpace.y = clickedPoint.y;
-
-                    updateSteps();
-				}
-			}
-		};
-
 		for (int i = 0; i < 4; i++) {
 			for (int j = 0; j < 4; j++) {
-				Button button = buttons[i][j];
-				button.setOnClickListener(listener);
-			}
-		}
-	}
-	
-	private Point getClickedPoint(Button clickedButton) {
-		for (int i = 0; i < 4; i++) {
-			for (int j = 0; j < 4; j++) {
-				if (clickedButton == buttons[i][j]) {
-					Point point = new Point();
-					point.x = i;
-					point.y = j;
-					return point;
-				}
-			}
-		}
-		return null;
-	}
-
-	private boolean canMove(Point clicked) {
-		if (clicked.equals(emptySpace)) {
-			return false;
-		}
-		if (clicked.x == emptySpace.x) {
-			int diff = Math.abs(clicked.y - emptySpace.y);
-			if (diff == 1) {
-				return true;
-			}
-		} else if (clicked.y == emptySpace.y) {
-			int diff = Math.abs(clicked.x - emptySpace.x);
-			if (diff == 1) {
-				return true;
-			}
-		}
-		
-		return false;
-	}
-
-	private void generateArray() {
-        ArrayList<Integer> randomValues = new ArrayList<Integer>();
-        for(int i = 1; i <= 16; i++){
-            randomValues.add(i);
-        }
-        Random random = new Random();
-		for (int i = 0; i < 4; i++) {
-			for (int j = 0; j < 4; j++) {
-                int index = random.nextInt(randomValues.size());
-                int value = randomValues.get(index);
-				if (value >= 16) {
-					emptySpace.x = i;
-					emptySpace.y = j;
-					array[i][j] = -1;
-				} else {
-					array[i][j] = value;
-				}
-				randomValues.remove(index);
-			}
-		}
-	}
-
-	private void paintTable() {
-		for (int i = 0; i < 4; i++) {
-			for (int j = 0; j < 4; j++) {
-				Button button = buttons[i][j];
-				int number = array[i][j];
-				if (number > -1) {
-					button.setText(String.valueOf(number));
-				} else {
-					button.setText(" ");
-					button.setVisibility(View.INVISIBLE);
-				}
+				Button button = gameHelper.getButtons()[i][j];
+				button.setOnClickListener(this);
 			}
 		}
 	}
 
     private void updateSteps(){
-        steps++;
-        String str =  String.format(getString(R.string.steps), steps);
+        gameHelper.incrStep();
+        String str =  String.format(getString(R.string.steps), gameHelper.getSteps());
         viewSteps.setText(str);
     }
 
-	private void initArray() {
+	private void initilization() {
+        Button[][] buttons = new Button[4][4];
 		b11 = (Button) findViewById(R.id.button11);
 		buttons[0][0] = b11;
 		b12 = (Button) findViewById(R.id.button12);
@@ -199,9 +105,40 @@ public class FifteenActivity extends Activity {
 		buttons[3][2] = b43;
 		b44 = (Button) findViewById(R.id.button44);
 		buttons[3][3] = b44;
+        gameHelper = new GameHelper(buttons);
 
         viewSteps = (TextView) findViewById(R.id.viewSteps);
+        String str =  String.format(getString(R.string.steps), gameHelper.getSteps());
+        viewSteps.setText(str);
+
         timer = (Chronometer) findViewById(R.id.time);
+        squareLayout = (SquareLayout)findViewById(R.id.squareLayout);
+
+        int mWidthForButton = squareLayout.getWidth();
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+               buttons[i][j].setWidth(mWidthForButton);
+            }
+        }
 	}
 
+    @Override
+    public void onClick(View view) {
+        Button clickedButton = (Button) view;
+        Point clickedPoint = gameHelper.getClickedPoint(clickedButton);
+        if (clickedPoint != null && gameHelper.canMove(clickedPoint)) {
+            clickedButton.setVisibility(View.INVISIBLE);
+            String numberStr = clickedButton.getText().toString();
+            clickedButton.setText(" ");
+
+            Button button = gameHelper.getButtons()[gameHelper.getEmptySpace().x][gameHelper.getEmptySpace().y];
+            button.setVisibility(View.VISIBLE);
+            button.setText(numberStr);
+
+            gameHelper.getEmptySpace().x = clickedPoint.x;
+            gameHelper.getEmptySpace().y = clickedPoint.y;
+
+            updateSteps();
+        }
+    }
 }

@@ -1,4 +1,4 @@
-package ru.mydroid;
+package ru.mydroid.MyView;
 
 import android.content.Context;
 import android.util.AttributeSet;
@@ -17,6 +17,7 @@ public class SquareButton extends Button {
 	// This is used to make square buttons.
 	@Override
 	protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-		super.onMeasure(widthMeasureSpec, widthMeasureSpec);
+        super.onMeasure(widthMeasureSpec, widthMeasureSpec);
 	}
+
 }
