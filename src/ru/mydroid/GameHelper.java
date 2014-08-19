@@ -33,6 +33,12 @@ public class GameHelper {
         return this.steps;
     }
 
+    protected void setSteps(int steps) {this.steps = steps; }
+
+    protected int[][] getArray(){ return this.array; };
+
+    protected void setArray(int[][] array) {this.array = array; }
+
     protected void incrStep(){
         steps++;
     }
@@ -79,12 +85,13 @@ public class GameHelper {
             for (int j = 0; j < 4; j++) {
                 Button button = this.getButtons()[i][j];
                 int number = array[i][j];
-                if(number != -1) {
-                    button.setText(String.valueOf(number));
-                }
-                else {
+                if(number == -1) {
                     button.setText(" ");
                     button.setVisibility(View.INVISIBLE);
+                }
+                else {
+                    button.setText(String.valueOf(number));
+                    button.setVisibility(View.VISIBLE);
                 }
             }
         }

@@ -2,6 +2,8 @@ package ru.mydroid;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.os.SystemClock;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -13,6 +15,13 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class FifteenActivity extends Activity implements OnClickListener{
+    final static String LOG_TAG = "myLogs";
+    final static String STEPS = "steps";
+    final static String TIME = "time";
+    final static String ARRAY_1 = "array_1";
+    final static String ARRAY_2 = "array_2";
+    final static String ARRAY_3 = "array_3";
+    final static String ARRAY_4 = "array_4";
 
 	private Button b11;
 	private Button b12;
@@ -40,20 +49,15 @@ public class FifteenActivity extends Activity implements OnClickListener{
 
     GameHelper gameHelper;
 
-
-	private int[][] array = new int[4][4];
-
-
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
 
 		initilization();
-		array = gameHelper.generateArray();
+		gameHelper.generateArray();
 		gameHelper.paintTable();
         timer.start();
-
 		for (int i = 0; i < 4; i++) {
 			for (int j = 0; j < 4; j++) {
 				Button button = gameHelper.getButtons()[i][j];
@@ -62,10 +66,70 @@ public class FifteenActivity extends Activity implements OnClickListener{
 		}
 	}
 
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        outState.putInt(STEPS, gameHelper.getSteps());
+        outState.putLong(TIME, SystemClock.elapsedRealtime() - timer.getBase());
+        outState.putIntArray(ARRAY_1, gameHelper.getArray()[0]);
+        outState.putIntArray(ARRAY_2, gameHelper.getArray()[1]);
+        outState.putIntArray(ARRAY_3, gameHelper.getArray()[2]);
+        outState.putIntArray(ARRAY_4, gameHelper.getArray()[3]);
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        //Восстонавливаем и затем обновляем шаги
+        gameHelper.setSteps(savedInstanceState.getInt(STEPS));
+        updateSteps();
+
+        //Восстонавливаем и сетим в timer время
+        long prevTime = savedInstanceState.getLong(TIME);
+        timer.setBase(SystemClock.elapsedRealtime() - prevTime);
+        super.onRestoreInstanceState(savedInstanceState);
+
+        //Восстонавливаем и рисуем игровое поле
+        int[][] prev_array = new int[4][4];
+        prev_array[0] = savedInstanceState.getIntArray(ARRAY_1);
+        prev_array[1] = savedInstanceState.getIntArray(ARRAY_2);
+        prev_array[2] = savedInstanceState.getIntArray(ARRAY_3);
+        prev_array[3] = savedInstanceState.getIntArray(ARRAY_4);
+        gameHelper.setArray(prev_array);
+        gameHelper.paintTable();
+    }
+
+    @Override
+    public void onClick(View view) {
+        Button clickedButton = (Button) view;
+        Point clickedPoint = gameHelper.getClickedPoint(clickedButton);
+        if (clickedPoint != null && gameHelper.canMove(clickedPoint)) {
+            clickedButton.setVisibility(View.INVISIBLE);
+            String numberStr = clickedButton.getText().toString();
+            clickedButton.setText(" ");
+
+            Button button = gameHelper.getButtons()[gameHelper.getEmptySpace().x][gameHelper.getEmptySpace().y];
+            button.setVisibility(View.VISIBLE);
+            button.setText(numberStr);
+
+            gameHelper.getEmptySpace().x = clickedPoint.x;
+            gameHelper.getEmptySpace().y = clickedPoint.y;
+
+            updateStepsIncr();
+        }
+    }
+
     private void updateSteps(){
-        gameHelper.incrStep();
         String str =  String.format(getString(R.string.steps), gameHelper.getSteps());
         viewSteps.setText(str);
+    }
+
+    private void updateStepsIncr() {
+        gameHelper.incrStep();
+        updateSteps();
+    }
+
+    private void log(String msg){
+        Log.d(LOG_TAG, msg);
     }
 
 	private void initilization() {
@@ -121,24 +185,4 @@ public class FifteenActivity extends Activity implements OnClickListener{
             }
         }
 	}
-
-    @Override
-    public void onClick(View view) {
-        Button clickedButton = (Button) view;
-        Point clickedPoint = gameHelper.getClickedPoint(clickedButton);
-        if (clickedPoint != null && gameHelper.canMove(clickedPoint)) {
-            clickedButton.setVisibility(View.INVISIBLE);
-            String numberStr = clickedButton.getText().toString();
-            clickedButton.setText(" ");
-
-            Button button = gameHelper.getButtons()[gameHelper.getEmptySpace().x][gameHelper.getEmptySpace().y];
-            button.setVisibility(View.VISIBLE);
-            button.setText(numberStr);
-
-            gameHelper.getEmptySpace().x = clickedPoint.x;
-            gameHelper.getEmptySpace().y = clickedPoint.y;
-
-            updateSteps();
-        }
-    }
 }
