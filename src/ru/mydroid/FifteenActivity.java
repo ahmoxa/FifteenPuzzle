@@ -22,6 +22,7 @@ public class FifteenActivity extends Activity implements OnClickListener{
     final static String ARRAY_2 = "array_2";
     final static String ARRAY_3 = "array_3";
     final static String ARRAY_4 = "array_4";
+    final static String EMPTY_SPACE = "empty_space";
 
 	private Button b11;
 	private Button b12;
@@ -55,7 +56,7 @@ public class FifteenActivity extends Activity implements OnClickListener{
 		setContentView(R.layout.main);
 
 		initilization();
-		gameHelper.generateArray();
+        gameHelper.generateArray();
 		gameHelper.paintTable();
         timer.start();
 		for (int i = 0; i < 4; i++) {
@@ -70,6 +71,8 @@ public class FifteenActivity extends Activity implements OnClickListener{
     protected void onSaveInstanceState(Bundle outState) {
         outState.putInt(STEPS, gameHelper.getSteps());
         outState.putLong(TIME, SystemClock.elapsedRealtime() - timer.getBase());
+        int[] emptySpace = {gameHelper.getEmptySpace().x, gameHelper.getEmptySpace().y};
+        outState.putIntArray(EMPTY_SPACE, emptySpace);
         outState.putIntArray(ARRAY_1, gameHelper.getArray()[0]);
         outState.putIntArray(ARRAY_2, gameHelper.getArray()[1]);
         outState.putIntArray(ARRAY_3, gameHelper.getArray()[2]);
@@ -94,7 +97,14 @@ public class FifteenActivity extends Activity implements OnClickListener{
         prev_array[1] = savedInstanceState.getIntArray(ARRAY_2);
         prev_array[2] = savedInstanceState.getIntArray(ARRAY_3);
         prev_array[3] = savedInstanceState.getIntArray(ARRAY_4);
+        gameHelper.logArray(gameHelper.getArray());
         gameHelper.setArray(prev_array);
+        gameHelper.logArray(gameHelper.getArray());
+        Point prevEmptySpace = new Point();
+        prevEmptySpace.x = savedInstanceState.getIntArray(EMPTY_SPACE)[0];
+        prevEmptySpace.y = savedInstanceState.getIntArray(EMPTY_SPACE)[1];
+        gameHelper.setEmptySpace(prevEmptySpace);
+
         gameHelper.paintTable();
     }
 
@@ -103,18 +113,14 @@ public class FifteenActivity extends Activity implements OnClickListener{
         Button clickedButton = (Button) view;
         Point clickedPoint = gameHelper.getClickedPoint(clickedButton);
         if (clickedPoint != null && gameHelper.canMove(clickedPoint)) {
-            clickedButton.setVisibility(View.INVISIBLE);
-            String numberStr = clickedButton.getText().toString();
-            clickedButton.setText(" ");
-
-            Button button = gameHelper.getButtons()[gameHelper.getEmptySpace().x][gameHelper.getEmptySpace().y];
-            button.setVisibility(View.VISIBLE);
-            button.setText(numberStr);
-
-            gameHelper.getEmptySpace().x = clickedPoint.x;
-            gameHelper.getEmptySpace().y = clickedPoint.y;
-
+            int[][] tmp_array = gameHelper.getArray();
+            tmp_array[gameHelper.getEmptySpace().x][gameHelper.getEmptySpace().y] = Integer.parseInt(clickedButton.getText().toString());
+            tmp_array[clickedPoint.x][clickedPoint.y] = -1;
+            gameHelper.setArray(tmp_array);
+            gameHelper.paintTable();
+            gameHelper.setEmptySpace(clickedPoint);
             updateStepsIncr();
+            gameHelper.logArray(gameHelper.getArray());
         }
     }
 

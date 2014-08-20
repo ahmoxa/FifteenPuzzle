@@ -1,5 +1,6 @@
 package ru.mydroid;
 
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -24,6 +25,8 @@ public class GameHelper {
     protected Point getEmptySpace(){
         return this.emptySpace;
     }
+
+    protected void setEmptySpace(Point emptySpace){this.emptySpace = emptySpace;};
 
     protected Button[][] getButtons(){
         return buttons;
@@ -114,4 +117,17 @@ public class GameHelper {
         }
         return false;
     }
+
+    protected void logArray(int[][] array){
+
+        String msg = "Array:\n";
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+               msg = msg + array[i][j] + " ";
+            }
+            msg = msg + "\n";
+        }
+        Log.d(FifteenActivity.LOG_TAG, msg);
+    }
+
 }
