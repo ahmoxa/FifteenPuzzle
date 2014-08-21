@@ -10,23 +10,17 @@ import java.util.Random;
 
 public class GameHelper {
 
+    final static int EMPTY_POINT = -1;
+
     Button[][] buttons;
     int[][] array;
-    Point emptySpace;
     int steps;
 
     GameHelper(Button[][] buttons){
         this.buttons = buttons;
         array = new int[4][4];
-        emptySpace = new Point();
         steps = 0;
     }
-
-    protected Point getEmptySpace(){
-        return this.emptySpace;
-    }
-
-    protected void setEmptySpace(Point emptySpace){this.emptySpace = emptySpace;};
 
     protected Button[][] getButtons(){
         return buttons;
@@ -44,6 +38,20 @@ public class GameHelper {
 
     protected void incrStep(){
         steps++;
+    }
+
+    protected Point getEmptySpace(){
+        Point emptyPoint = new Point();
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                if (array[i][j] == EMPTY_POINT){
+                    emptyPoint.x = i;
+                    emptyPoint.y = j;
+                    return  emptyPoint;
+                }
+            }
+        }
+        return  null;
     }
 
     protected Point getClickedPoint(Button clickedButton) {
@@ -71,9 +79,7 @@ public class GameHelper {
                 int index = random.nextInt(randomValues.size());
                 int value = randomValues.get(index);
                 if (value >= 16) {
-                    emptySpace.x = i;
-                    emptySpace.y = j;
-                    array[i][j] = -1;
+                    array[i][j] = EMPTY_POINT;
                 } else {
                     array[i][j] = value;
                 }
@@ -88,7 +94,7 @@ public class GameHelper {
             for (int j = 0; j < 4; j++) {
                 Button button = this.getButtons()[i][j];
                 int number = array[i][j];
-                if(number == -1) {
+                if(number == EMPTY_POINT) {
                     button.setText(" ");
                     button.setVisibility(View.INVISIBLE);
                 }

@@ -22,7 +22,6 @@ public class FifteenActivity extends Activity implements OnClickListener{
     final static String ARRAY_2 = "array_2";
     final static String ARRAY_3 = "array_3";
     final static String ARRAY_4 = "array_4";
-    final static String EMPTY_SPACE = "empty_space";
 
 	private Button b11;
 	private Button b12;
@@ -69,10 +68,9 @@ public class FifteenActivity extends Activity implements OnClickListener{
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
+        //Сохраняем шаги, время, игровое поле
         outState.putInt(STEPS, gameHelper.getSteps());
         outState.putLong(TIME, SystemClock.elapsedRealtime() - timer.getBase());
-        int[] emptySpace = {gameHelper.getEmptySpace().x, gameHelper.getEmptySpace().y};
-        outState.putIntArray(EMPTY_SPACE, emptySpace);
         outState.putIntArray(ARRAY_1, gameHelper.getArray()[0]);
         outState.putIntArray(ARRAY_2, gameHelper.getArray()[1]);
         outState.putIntArray(ARRAY_3, gameHelper.getArray()[2]);
@@ -97,14 +95,7 @@ public class FifteenActivity extends Activity implements OnClickListener{
         prev_array[1] = savedInstanceState.getIntArray(ARRAY_2);
         prev_array[2] = savedInstanceState.getIntArray(ARRAY_3);
         prev_array[3] = savedInstanceState.getIntArray(ARRAY_4);
-        gameHelper.logArray(gameHelper.getArray());
         gameHelper.setArray(prev_array);
-        gameHelper.logArray(gameHelper.getArray());
-        Point prevEmptySpace = new Point();
-        prevEmptySpace.x = savedInstanceState.getIntArray(EMPTY_SPACE)[0];
-        prevEmptySpace.y = savedInstanceState.getIntArray(EMPTY_SPACE)[1];
-        gameHelper.setEmptySpace(prevEmptySpace);
-
         gameHelper.paintTable();
     }
 
@@ -115,12 +106,10 @@ public class FifteenActivity extends Activity implements OnClickListener{
         if (clickedPoint != null && gameHelper.canMove(clickedPoint)) {
             int[][] tmp_array = gameHelper.getArray();
             tmp_array[gameHelper.getEmptySpace().x][gameHelper.getEmptySpace().y] = Integer.parseInt(clickedButton.getText().toString());
-            tmp_array[clickedPoint.x][clickedPoint.y] = -1;
+            tmp_array[clickedPoint.x][clickedPoint.y] = gameHelper.EMPTY_POINT;
             gameHelper.setArray(tmp_array);
             gameHelper.paintTable();
-            gameHelper.setEmptySpace(clickedPoint);
             updateStepsIncr();
-            gameHelper.logArray(gameHelper.getArray());
         }
     }
 
@@ -132,10 +121,6 @@ public class FifteenActivity extends Activity implements OnClickListener{
     private void updateStepsIncr() {
         gameHelper.incrStep();
         updateSteps();
-    }
-
-    private void log(String msg){
-        Log.d(LOG_TAG, msg);
     }
 
 	private void initilization() {
@@ -184,7 +169,8 @@ public class FifteenActivity extends Activity implements OnClickListener{
         timer = (Chronometer) findViewById(R.id.time);
         squareLayout = (SquareLayout)findViewById(R.id.squareLayout);
 
-        int mWidthForButton = squareLayout.getWidth();
+        //Делаем кнопки квадратными
+        int mWidthForButton = squareLayout.getWidth()/4;
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 4; j++) {
                buttons[i][j].setWidth(mWidthForButton);
