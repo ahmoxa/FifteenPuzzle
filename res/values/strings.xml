@@ -4,6 +4,8 @@
     <string name="app_name">FifteenPuzzle</string>
     <string name="chronometer_lbl">Time: %s</string>
     <string name="steps">Steps: %1$d</string>
+    <string name="main_menu_start">Start</string>
+    <string name="main_menu_exit">Exit</string>
 
 
 

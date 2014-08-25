@@ -54,7 +54,7 @@ public class FifteenActivity extends Activity implements OnClickListener{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
 
-		initilization();
+        initialize();
         gameHelper.generateArray();
 		gameHelper.paintTable();
         timer.start();
@@ -123,7 +123,7 @@ public class FifteenActivity extends Activity implements OnClickListener{
         updateSteps();
     }
 
-	private void initilization() {
+	private void initialize() {
         Button[][] buttons = new Button[4][4];
 		b11 = (Button) findViewById(R.id.button11);
 		buttons[0][0] = b11;
