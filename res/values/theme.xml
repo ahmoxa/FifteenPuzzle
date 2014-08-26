@@ -2,8 +2,6 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
 
     <style name="Theme15" parent="@android:style/Theme.Black">
-        <item name="android:background">#ff648ff0</item>
-        <item name="android:textColor">#FFFFFF00</item>
         <item name="android:buttonStyle">@style/Button15Style</item>
     </style>
 

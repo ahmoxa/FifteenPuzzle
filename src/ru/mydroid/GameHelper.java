@@ -5,6 +5,7 @@ import android.view.View;
 import android.widget.Button;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Random;
 
 
@@ -89,6 +90,11 @@ public class GameHelper {
         return array;
     }
 
+    protected void generateEasyArray(){
+        int[][] winArray = {{1, 2, 3, 4},{5, 6, 7, 8},{9, 10, 11, 12}, {13, 14, EMPTY_POINT, 15}};
+        setArray(winArray);
+    }
+
     protected void paintTable() {
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 4; j++) {
@@ -122,6 +128,18 @@ public class GameHelper {
             }
         }
         return false;
+    }
+
+    protected boolean checkForWin(){
+       int[][] winArray = {{1, 2, 3, 4},{5, 6, 7, 8},{9, 10, 11, 12}, {13, 14, 15, EMPTY_POINT}};
+       for (int i = 0; i < 4; i++){
+           for (int j = 0; j < 4; j++){
+               if (getArray()[i][j] != winArray[i][j]){
+                   return false;
+               }
+           }
+       }
+        return true;
     }
 
     protected void logArray(int[][] array){

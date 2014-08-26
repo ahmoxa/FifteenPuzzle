@@ -1,6 +1,9 @@
 package ru.mydroid;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.util.Log;
@@ -9,9 +12,13 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.TextView;
+import android.widget.Toast;
 import ru.mydroid.MyView.SquareLayout;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Random;
 
 public class FifteenActivity extends Activity implements OnClickListener{
@@ -22,6 +29,7 @@ public class FifteenActivity extends Activity implements OnClickListener{
     final static String ARRAY_2 = "array_2";
     final static String ARRAY_3 = "array_3";
     final static String ARRAY_4 = "array_4";
+    final static int WIN_DIALOG = 1;
 
 	private Button b11;
 	private Button b12;
@@ -55,7 +63,7 @@ public class FifteenActivity extends Activity implements OnClickListener{
 		setContentView(R.layout.main);
 
         initialize();
-        gameHelper.generateArray();
+        gameHelper.generateEasyArray();
 		gameHelper.paintTable();
         timer.start();
 		for (int i = 0; i < 4; i++) {
@@ -110,6 +118,11 @@ public class FifteenActivity extends Activity implements OnClickListener{
             gameHelper.setArray(tmp_array);
             gameHelper.paintTable();
             updateStepsIncr();
+
+            if (gameHelper.checkForWin()){
+                timer.stop();
+                showDialog(WIN_DIALOG);
+            }
         }
     }
 
@@ -123,7 +136,35 @@ public class FifteenActivity extends Activity implements OnClickListener{
         updateSteps();
     }
 
-	private void initialize() {
+    @Override
+    protected Dialog onCreateDialog(int id) {
+        if (id == WIN_DIALOG){
+            long mills = SystemClock.elapsedRealtime() - timer.getBase();
+            DateFormat TIMESTAMP = new SimpleDateFormat("mm:ss");
+            String time = TIMESTAMP.format(new Date(mills));
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle(R.string.win_dialog_tittle)
+                    .setMessage(String.format(getString(R.string.win_dialog_message), gameHelper.getSteps(), time))
+                    .setPositiveButton(R.string.win_dialog_pos_btn, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            gameHelper.setSteps(0);
+                            updateSteps();
+                            timer.setBase(SystemClock.elapsedRealtime());
+                            timer.start();
+                            gameHelper.generateEasyArray();
+                            gameHelper.paintTable();
+                        }
+                    })
+            ;
+            return builder.create();
+
+        }
+        return super.onCreateDialog(id);
+    }
+
+    private void initialize() {
         Button[][] buttons = new Button[4][4];
 		b11 = (Button) findViewById(R.id.button11);
 		buttons[0][0] = b11;

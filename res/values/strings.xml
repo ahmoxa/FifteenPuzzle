@@ -4,8 +4,13 @@
     <string name="app_name">FifteenPuzzle</string>
     <string name="chronometer_lbl">Time: %s</string>
     <string name="steps">Steps: %1$d</string>
+
     <string name="main_menu_start">Start</string>
     <string name="main_menu_exit">Exit</string>
+
+    <string name="win_dialog_tittle">Congratulation!!</string>
+    <string name="win_dialog_message">You win!! Tour result: Steps %1$d Time %2$s</string>
+    <string name="win_dialog_pos_btn">Try one more!</string>
 
 
 
