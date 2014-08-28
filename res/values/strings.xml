@@ -6,11 +6,14 @@
     <string name="steps">Steps: %1$d</string>
 
     <string name="main_menu_start">Start</string>
+    <string name="main_menu_about">About</string>
     <string name="main_menu_exit">Exit</string>
 
     <string name="win_dialog_tittle">Congratulation!!</string>
-    <string name="win_dialog_message">You win!! Tour result: Steps %1$d Time %2$s</string>
+    <string name="win_dialog_message">You win!! Your result: Steps %1$d Time %2$s</string>
     <string name="win_dialog_pos_btn">Try one more!</string>
+
+    <string name="about_app">This simple FifteenPuzzle game</string>
 
 
 

@@ -23,12 +23,22 @@
             android:layout_gravity="center"
             android:text="@string/main_menu_start"
             style="@style/MenuFont"
+            android:onClick="onClick"
+            />
+    <TextView
+            android:id="@+id/tvAbout"
+            android:layout_gravity="center"
+            android:text="@string/main_menu_about"
+            style="@style/MenuFont"
+            android:layout_below="@+id/tvStart"
+            android:onClick="onClick"
             />
     <TextView
             android:id="@+id/tvExit"
             android:text="@string/main_menu_exit"
             style="@style/MenuFont"
-            android:layout_below="@+id/tvStart"
+            android:layout_below="@+id/tvAbout"
+            android:onClick="onClick"
             />
 
 </RelativeLayout>

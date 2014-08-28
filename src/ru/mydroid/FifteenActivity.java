@@ -9,10 +9,8 @@ import android.os.SystemClock;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.Button;
-import android.widget.Chronometer;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.view.Window;
+import android.widget.*;
 import ru.mydroid.MyView.SquareLayout;
 
 import java.text.DateFormat;
@@ -139,29 +137,43 @@ public class FifteenActivity extends Activity implements OnClickListener{
     @Override
     protected Dialog onCreateDialog(int id) {
         if (id == WIN_DIALOG){
+
+            //Записываем время из timer в переменную time
             long mills = SystemClock.elapsedRealtime() - timer.getBase();
             DateFormat TIMESTAMP = new SimpleDateFormat("mm:ss");
             String time = TIMESTAMP.format(new Date(mills));
 
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setTitle(R.string.win_dialog_tittle)
-                    .setMessage(String.format(getString(R.string.win_dialog_message), gameHelper.getSteps(), time))
-                    .setPositiveButton(R.string.win_dialog_pos_btn, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            gameHelper.setSteps(0);
-                            updateSteps();
-                            timer.setBase(SystemClock.elapsedRealtime());
-                            timer.start();
-                            gameHelper.generateEasyArray();
-                            gameHelper.paintTable();
-                        }
-                    })
-            ;
-            return builder.create();
+            //Создаем dialog http://stackoverflow.com/questions/3995058/android-custom-alertdialog-background-color
+            final Dialog myDialog = new Dialog(this);
+            myDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+            myDialog.setContentView(R.layout.dialog_win);
 
+
+            //Устанавливаем сообщение о победе
+            TextView dlgWin_tv = (TextView) myDialog.findViewById(R.id.dlgWin_tv);
+            dlgWin_tv.setText(String.format(getString(R.string.win_dialog_message), gameHelper.getSteps(), time));
+
+            //Рестартим игру по клику на кнопку
+            Button dlgWin_btn = (Button) myDialog.findViewById(R.id.dlgWin_btn);
+            dlgWin_btn.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    restartGame();
+                    myDialog.cancel();
+                }
+            });
+            myDialog.show();
         }
         return super.onCreateDialog(id);
+    }
+
+    private void restartGame(){
+        gameHelper.setSteps(0);
+        updateSteps();
+        timer.setBase(SystemClock.elapsedRealtime());
+        timer.start();
+        gameHelper.generateEasyArray();
+        gameHelper.paintTable();
     }
 
     private void initialize() {
@@ -215,6 +227,7 @@ public class FifteenActivity extends Activity implements OnClickListener{
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 4; j++) {
                buttons[i][j].setWidth(mWidthForButton);
+
             }
         }
 	}

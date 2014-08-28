@@ -24,21 +24,25 @@ public class MenuActivity extends Activity implements View.OnClickListener{
 
     @Override
     public void onClick(View view) {
+        Intent intent = null;
         switch (view.getId()){
             case R.id.tvStart:
-                Intent startIntent = new Intent(this, FifteenActivity.class);
-                startActivity(startIntent);
+                intent = new Intent(this, FifteenActivity.class);
+                break;
+            case R.id.tvAbout:
+                intent = new Intent(this, AboutActivity.class);
                 break;
             case R.id.tvExit:
                 finish();
                 break;
         }
+        if (intent != null) startActivity(intent);
     }
 
     private void initialize(){
-        tvStart = (TextView) findViewById(R.id.tvStart);
-        tvStart.setOnClickListener(this);
-        tvExit = (TextView)findViewById(R.id.tvExit);
-        tvExit.setOnClickListener(this);
+//        tvStart = (TextView) findViewById(R.id.tvStart);
+//        tvStart.setOnClickListener(this);
+//        tvExit = (TextView)findViewById(R.id.tvExit);
+//        tvExit.setOnClickListener(this);
     }
 }

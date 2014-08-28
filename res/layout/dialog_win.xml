@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="#ff236a68"
+        >
+    <TextView
+            android:id="@+id/dlgWin_tv"
+            android:layout_gravity="center"
+            android:layout_width="600dp"
+            android:layout_height="wrap_content"
+            style="@style/MenuFont"
+            android:text="@string/win_dialog_message"
+            />
+    <Button
+            android:id="@+id/dlgWin_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/win_dialog_pos_btn"
+            style="@style/Button15Style"
+            />
+
+</LinearLayout>
