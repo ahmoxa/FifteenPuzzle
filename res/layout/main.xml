@@ -66,46 +66,78 @@
 
                 <TableRow>
 
-                    <ru.mydroid.MyView.SquareButton android:id="@+id/button11" />
+                    <ru.mydroid.MyView.SquareButton
+                            android:id="@+id/button11"
+                            style="@style/Button15Style"/>
 
-                    <ru.mydroid.MyView.SquareButton android:id="@+id/button12" />
+                    <ru.mydroid.MyView.SquareButton
+                            android:id="@+id/button12"
+                            style="@style/Button15Style"/>
 
-                    <ru.mydroid.MyView.SquareButton android:id="@+id/button13" />
+                    <ru.mydroid.MyView.SquareButton
+                            android:id="@+id/button13"
+                            style="@style/Button15Style"/>
 
-                    <ru.mydroid.MyView.SquareButton android:id="@+id/button14" />
+                    <ru.mydroid.MyView.SquareButton
+                            android:id="@+id/button14"
+                            style="@style/Button15Style"/>
                 </TableRow>
 
                 <TableRow>
 
-                    <ru.mydroid.MyView.SquareButton android:id="@+id/button21" />
+                    <ru.mydroid.MyView.SquareButton
+                            android:id="@+id/button21"
+                            style="@style/Button15Style"/>
 
-                    <ru.mydroid.MyView.SquareButton android:id="@+id/button22" />
+                    <ru.mydroid.MyView.SquareButton
+                            android:id="@+id/button22"
+                            style="@style/Button15Style"/>
 
-                    <ru.mydroid.MyView.SquareButton android:id="@+id/button23" />
+                    <ru.mydroid.MyView.SquareButton
+                            android:id="@+id/button23"
+                            style="@style/Button15Style"/>
 
-                    <ru.mydroid.MyView.SquareButton android:id="@+id/button24" />
+                    <ru.mydroid.MyView.SquareButton
+                            android:id="@+id/button24"
+                            style="@style/Button15Style"/>
                 </TableRow>
 
                 <TableRow>
 
-                    <ru.mydroid.MyView.SquareButton android:id="@+id/button31" />
+                    <ru.mydroid.MyView.SquareButton
+                            android:id="@+id/button31"
+                            style="@style/Button15Style"/>
 
-                    <ru.mydroid.MyView.SquareButton android:id="@+id/button32" />
+                    <ru.mydroid.MyView.SquareButton
+                            android:id="@+id/button32"
+                            style="@style/Button15Style"/>
 
-                    <ru.mydroid.MyView.SquareButton android:id="@+id/button33" />
+                    <ru.mydroid.MyView.SquareButton
+                            android:id="@+id/button33"
+                            style="@style/Button15Style"/>
 
-                    <ru.mydroid.MyView.SquareButton android:id="@+id/button34" />
+                    <ru.mydroid.MyView.SquareButton
+                            android:id="@+id/button34"
+                            style="@style/Button15Style"/>
                 </TableRow>
 
                 <TableRow>
 
-                    <ru.mydroid.MyView.SquareButton android:id="@+id/button41" />
+                    <ru.mydroid.MyView.SquareButton
+                            android:id="@+id/button41"
+                            style="@style/Button15Style"/>
 
-                    <ru.mydroid.MyView.SquareButton android:id="@+id/button42" />
+                    <ru.mydroid.MyView.SquareButton
+                            android:id="@+id/button42"
+                            style="@style/Button15Style"/>
 
-                    <ru.mydroid.MyView.SquareButton android:id="@+id/button43" />
+                    <ru.mydroid.MyView.SquareButton
+                            android:id="@+id/button43"
+                            style="@style/Button15Style"/>
 
-                    <ru.mydroid.MyView.SquareButton android:id="@+id/button44" />
+                    <ru.mydroid.MyView.SquareButton
+                            android:id="@+id/button44"
+                            style="@style/Button15Style"/>
                 </TableRow>
         </TableLayout>
     </ru.mydroid.MyView.SquareLayout>
