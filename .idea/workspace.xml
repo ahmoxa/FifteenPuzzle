@@ -34,9 +34,7 @@
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Unnamed-0" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e44d4aba-8c0a-4576-8c42-5fda45afcdfd" name="Default" comment="refactor">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ru/mydroid/GameHelper.java" afterPath="$PROJECT_DIR$/src/ru/mydroid/GameHelper.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ru/mydroid/MenuActivity.java" afterPath="$PROJECT_DIR$/src/ru/mydroid/MenuActivity.java" />
+    <list default="true" id="e44d4aba-8c0a-4576-8c42-5fda45afcdfd" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <list id="62bfcdba-0463-4fcd-bebf-c8884e95b866" name="Failed commit: Default" comment="refactor">
@@ -108,7 +106,7 @@
       <file leaf-file-name="GameHelper.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/ru/mydroid/GameHelper.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="92" column="23" selection-start="2336" selection-end="2336" vertical-scroll-proportion="0.5288889" vertical-offset="918" max-vertical-offset="2652">
+            <state line="88" column="9" selection-start="2272" selection-end="2272" vertical-scroll-proportion="0.6857143" vertical-offset="918" max-vertical-offset="2652">
               <folding />
             </state>
           </provider>
@@ -531,6 +529,11 @@
       <created>1402746242471</created>
       <updated>1402746242471</updated>
     </task>
+    <task id="LOCAL-00001" summary="refactor">
+      <created>1419252673424</created>
+      <updated>1419252673424</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -546,7 +549,7 @@
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32721382" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32937366" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32937366" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32937366" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32543105" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -969,7 +972,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/ru/mydroid/GameHelper.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="92" column="23" selection-start="2336" selection-end="2336" vertical-scroll-proportion="0.5288889" vertical-offset="918" max-vertical-offset="2652">
+        <state line="88" column="9" selection-start="2272" selection-end="2272" vertical-scroll-proportion="0.6857143" vertical-offset="918" max-vertical-offset="2652">
           <folding />
         </state>
       </provider>
