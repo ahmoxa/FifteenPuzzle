@@ -6,9 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
-/**
- * Created by vlasyk on 25.08.14.
- */
+
 public class MenuActivity extends Activity implements View.OnClickListener{
 
     TextView tvStart;

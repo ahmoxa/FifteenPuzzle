@@ -89,7 +89,7 @@ public class GameHelper {
         }
         return array;
     }
-
+    //Test!
     protected void generateEasyArray(){
         int[][] winArray = {{1, 2, 3, 4},
                             {5, 6, 7, 8},
